@@ -1,0 +1,34 @@
+label{
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 0.5em;
+    display: block;
+}
+h1{
+    text-align: center;
+    color: blue;
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    box-shadow: 0 0 10px 0 rgba(14, 1, 1, 0.2);
+    margin: 50px auto;
+    width: 50%;
+    border-radius: 10px;
+}
+.postbtn{
+    background-color: #590089;
+    color: #fff;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 20%;
+}
+.createform{
+    margin-left: auto;
+    margin-right: auto;
+}

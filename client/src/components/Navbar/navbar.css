@@ -1,0 +1,55 @@
+
+@import url('../../../node_modules/font-awesome/css/font-awesome.min.css');
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.blogtitle{
+    font-family: 'Inter';
+    font-style: italic;
+    /* identical to box height, or 43px */
+    letter-spacing: 0.17em;
+    color: #000000; 
+    text-shadow: -2px 8px 4px rgba(41, 0, 206, 0.29);
+}
+li a{
+width: 120px;
+font-family: 'Inter';
+font-style: italic;
+line-height: 119.52%;
+letter-spacing: 0.17em;
+color: #000000;
+text-shadow: 2px 4px 4px rgba(255, 0, 0, 0.25);
+}
+
+li{
+    margin-right:10px;
+}
+.nav-link{
+    font-size: 20px;
+    font-weight: 900;
+}
+.nav-link:hover{
+    cursor: pointer;
+    color: #590089;
+}
+
+@media screen and (max-width: 850px){
+    .nav-link{
+        font-size: 15px;
+    }
+    li{
+        margin-right: 1px;
+    }
+    .blogtitle{
+        display: none;
+    }
+}
+@media screen and (max-width: 400px){
+    .blogtitle{
+        display: block;
+        font-size: 15px;
+        margin-left:-2px;
+    }
+}

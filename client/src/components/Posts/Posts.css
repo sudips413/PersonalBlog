@@ -1,0 +1,89 @@
+@import url('../../../node_modules/font-awesome/css/font-awesome.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Arima:wght@100&family=Philosopher&display=swap');
+
+.PostImage{
+    width: 35%;
+    height: 100%;
+    object-fit: cover;
+    box-shadow: 10px 10px 10px 0 rgba(100, 1, 1, 0.2);
+    border-radius: 10px;
+}
+.PostImage:hover{
+    transform: scale(1.1);
+    transition: all 0.5s ease;
+}
+
+.card{
+    width: 100%;
+    height: 100%;    
+    
+    background-color: white;
+    margin: 1rem auto;
+    position: relative;
+    border: none;
+}
+
+h3,p,span{
+    margin : 2rem;
+}
+.card:hover{
+    box-shadow: 10px 10px 11px rgba(234, 4, 4, 0.2); 
+}
+
+.card-body{
+    width: 100%;
+    height: 100%;    
+    
+    background-color: white;
+    margin: 1rem auto;
+    
+    
+    
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, rgba(168, 221, 210, 0.5) 0%, rgba(19, 158, 149, 0) 100%);
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid rgb(255, 255, 255);
+    
+
+}
+.actions{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 1rem;
+    flex-wrap: wrap;
+}
+.bottom-action{
+    color: blue;
+    font-size: 1rem;
+}
+.username{
+    color: rgb(86, 3, 3);
+    font-weight: 600;
+    
+}
+
+.title{
+    margin:10px;
+    font-family: 'Arima', cursive;
+    font-weight: bolder;
+    
+}
+.card-body{
+    font-family:'Philosopher', sans-serif;
+    font-size: 20px;
+    color:rgba(17, 58, 87, 0.029);
+}
+
+@media screen and (max-width:746px){
+    .PostImage{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+}

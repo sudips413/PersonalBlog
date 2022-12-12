@@ -1,0 +1,62 @@
+.btn-primary{
+    background-color: #590089;
+    color: #fff;
+    border: none;
+    width: 40%;
+    padding: 10px;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 4px;
+    cursor: pointer;
+}
+input[type=text], input[type=password] {
+    
+    width: 80%;
+    padding: 12px 20px;
+    margin: 8px 0;
+  
+}
+
+#error{
+    color: red;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 10px;
+}
+.form{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+@media screen and (max-width: 600px) {
+    .form{
+        width: 100%;
+    }
+    input[type=text], input[type=password] {
+        width: 100%;
+    }
+    .btn-primary{
+        width: 60%;
+    }
+}
+@media screen and (min-width: 600px) {
+    .form{
+        width: 100%;
+    }
+    input[type=text], input[type=password] {
+        width: 50%;
+    }
+    .btn-primary{
+        width: 15%;
+    }
+}
+.label{
+    font-size: 15px;
+    font-family: 'space mono', monospace;
+    color: #4f0278;
+    font-weight: bold;
+}
+    
+
+
+
