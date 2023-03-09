@@ -1,5 +1,6 @@
 
 const Post = require('../models/Post');
+const mongoose = require('mongoose');
 
 exports.CreatePost = async (req,res)=>{
 
@@ -65,7 +66,7 @@ exports.UpdatePost = async(req,res)=>{
         if(post){
             post.title=req.body.title;
             post.description=req.body.description;
-            post.userid=req.body.userid;
+            post.userid= new mongoose.Types.ObjectId(req.body.userid);
             post.username=req.body.username;
             const updatedpost = await post.save();
             res.json({
