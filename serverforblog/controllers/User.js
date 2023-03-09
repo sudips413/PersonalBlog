@@ -69,7 +69,7 @@ exports.updatepic = async (req,res)=>{
         const id = req.params.id;
         console.log(id);
         const data = await User.findByIdAndUpdate({
-            _id:id
+            _id:new mongoose.Types.ObjectId(id)
         },{ 
             image:req.file.path
         });

@@ -9,7 +9,7 @@ exports.CreatePost = async (req,res)=>{
             title:req.body.title,
             description:req.body.description,
             image:req.file.path,
-            userid:req.body.userid,
+            userid:new mongoose.Types.ObjectId(req.body.userid),
             username:req.body.username
         });
         post.save().then((data)=>{

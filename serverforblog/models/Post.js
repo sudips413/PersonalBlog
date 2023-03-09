@@ -19,8 +19,8 @@ const Post= new mongoose.Schema(
             default: Date.now
         },
         userid:{
-            type:mongoose.Schema.Types.ObjectId,
-            required:true
+            type:String,
+            required:false
         },
         username:{
             type:String,
