@@ -40,12 +40,14 @@ exports.LoginAuth = async (req,res)=>{
     
     try{
         const {email,password}=req.body;
+        console.log(email,password);
        
         const data = await User.findOne({email,password});
+        const{passwords,...others} = data._doc;
         if(data){
             res.json({
                 success: true,
-                username: data.name,
+                info: others,
                 id: data._id,
                 message: "Login Successful"
             });
