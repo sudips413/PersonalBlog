@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const mongoose = require('mongoose');
+const Post = require('../models/Post');
 
 
 
@@ -44,10 +45,12 @@ exports.LoginAuth = async (req,res)=>{
        
         const data = await User.findOne({email,password});
         const{passwords,...others} = data._doc;
+        const posts = await Post.find();
         if(data){
             res.json({
                 success: true,
-                info: others,
+                user: others,
+                posts: posts,
                 id: data._id,
                 message: "Login Successful"
             });
