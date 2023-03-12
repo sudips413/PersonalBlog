@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 const PORT = process.env.PORT || 4000
+app.use('/', express.static('./images'));
 
 
 
