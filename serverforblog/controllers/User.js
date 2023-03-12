@@ -40,13 +40,11 @@ exports.RegisterUser= async (req, res) => {
 exports.LoginAuth = async (req,res)=>{
     
     try{
-        const {email,password}=req.body;
-        console.log(email,password);
-       
+        const {email,password}=req.body;       
         const data = await User.findOne({email,password});
-        const{passwords,...others} = data._doc;
-        const posts = await Post.find();
         if(data){
+            const{passwords,...others} = data._doc;
+            const posts = await Post.find();
             res.json({
                 success: true,
                 user: others,
