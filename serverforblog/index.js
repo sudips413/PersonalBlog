@@ -17,7 +17,7 @@ mongoose
 
 app.use(cors(
     {
-        origin: 'https://blog-sudips413.vercel.app'
+        origin: '*'
     }
 ));
 app.use(bodyParser.json());
