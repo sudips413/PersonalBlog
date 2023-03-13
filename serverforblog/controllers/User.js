@@ -70,7 +70,11 @@ exports.LoginAuth = async (req,res)=>{
 exports.updatepic = async (req,res)=>{
     try{
         const id = req.params.id;
-        imgpath=req.file.path.replace("public\\", "");
+        let imgpath=req.file.path
+        imgpath=imgpath.replace("public\\","");
+        
+        
+        console.log(imgpath);
         const data = await User.findByIdAndUpdate({
             _id:new mongoose.Types.ObjectId(id)
         },{ 
