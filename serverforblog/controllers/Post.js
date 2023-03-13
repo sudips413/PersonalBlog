@@ -5,11 +5,12 @@ const mongoose = require('mongoose');
 exports.CreatePost = async (req,res)=>{
 
     if(req.body){
+        imgpath=req.file.path.replace("public\\", "");
         
         const post = await new Post({
             title:req.body.title,
             description:req.body.description,
-            image:req.file.path,
+            image:imgpath,
             userid:new mongoose.Types.ObjectId(req.body.userid),
             username:req.body.username
         });
