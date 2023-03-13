@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 const PORT = process.env.PORT || 4000
-app.use('/', express.static('images'));
+app.use(express.static('public'));
 dotenv.config();
 mongoose 
     .connect("mongodb+srv://sudip:MongoDB123@cluster0.iwq7e3d.mongodb.net/blog", { useNewUrlParser: true, useUnifiedTopology: true })   
