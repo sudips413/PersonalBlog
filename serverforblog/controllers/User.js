@@ -2,6 +2,11 @@ const User = require('../models/User');
 const mongoose = require('mongoose');
 const Post = require('../models/Post');
 
+const fs = require('fs');
+const path = require('path');
+
+
+
 
 
 
@@ -70,31 +75,36 @@ exports.LoginAuth = async (req,res)=>{
 exports.updatepic = async (req,res)=>{
     try{
         const id = req.params.id;
-        const data = await User.findByIdAndUpdate({
-            _id:new mongoose.Types.ObjectId(id)
-        },{ 
-            image:req.file.path.replace("public\\","")
-        });
-        const {password,...others} = data._doc;
-        if(data){
+        const photoPath = path.join(__dirname, '../public/images', req.file.filename);
+        const photoData = fs.readFileSync(photoPath);
+        let ImageObject={
+            fileName:req.file.filename,
+            data:photoData,
+            contentType:req.file.mimetype
             
-            res.json({
-                success: true,
-                message: "Image updated successfully",
-                userdata: others
-                
-            });
         }
-        else{
-            res.json({
+        const data = await User.findByIdAndUpdate(
+            new mongoose.Types.ObjectId(id),
+            { image: ImageObject },
+            { new: true }
+        );
+        if(!data){
+            return res.json({
                 success: false,
                 message: "User does not exist"
             });
         }
+        const {password, ...others} = data._doc;
+        return res.json({
+            success: true,
+            message: "Image updated successfully",
+            userdata: others
+        });
 
     }
     catch(err){
-
+        console.error(err);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 }
 
@@ -103,6 +113,7 @@ exports.GetbyId = async (req,res)=>{
         const user = await User.findById(req.params.id);
         if(user){
             const{password,...others} = user._doc;
+            
             res.json({
                 success: true,
                 users: others,
@@ -121,16 +132,20 @@ exports.GetbyId = async (req,res)=>{
 
 exports.getallusers = async (req,res)=>{
     try{
-        const users = await User.find();
-        if(users){
+        const user= await User.find();
+        if(user){
+            const obj = user.map((item)=>{
+                const{password,...others} = item._doc;
+                return others;
+            })
             res.json({
                 success: true,
-                users: users,
+                users: obj,
                 message: "Users found"
             });
         }
         else{
-            res.send(users)
+            res.send(user)
         }
     }
     catch(err){
@@ -149,7 +164,6 @@ exports.ChangePassword = async (req,res)=>{
             if(newuser){
                 res.json({
                     success:true,
-                    newuser:newuser,
                     message:"succesfully updated password"
 
                 })

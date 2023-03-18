@@ -1,15 +1,22 @@
 
 const Post = require('../models/Post');
 const mongoose = require('mongoose');
+const fs = require('fs');
+const path = require('path');
 
 exports.CreatePost = async (req,res)=>{
 
     if(req.body){
-           
+        const photoPath = path.join(__dirname, '../public/images', req.file.filename);
+        const photoData = fs.readFileSync(photoPath);
         const post =new Post({
             title:req.body.title,
             description:req.body.description,
-            image:req.file.path.replace("public\\",""),
+            image:{
+                fileName:req.file.filename,
+                data:photoData,
+                contentType:req.file.mimetype
+            },
             userid:new mongoose.Types.ObjectId(req.body.userid),
             username:req.body.username
         });

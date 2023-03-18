@@ -10,9 +10,21 @@ const Post= new mongoose.Schema(
             type: String,
             required: true
         },
-        image: {
-            type: String,
-            required: false
+        image:{
+            fileName:{
+                type:String,
+                default:""
+            },
+            data:{
+                type:Buffer,
+                default:""
+            },
+            contentType:{
+                type:String,
+                default:""
+            },
+            required:false
+    
         },
         date: {
             type: Date,

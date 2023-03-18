@@ -19,8 +19,20 @@ const User = new mongoose.Schema({
         default: Date.now,
     },
     image:{
-        type:String,
-        required: false,
+        fileName:{
+            type:String,
+            default:""
+        },
+        data:{
+            type:Buffer,
+            default:""
+        },
+        contentType:{
+            type:String,
+            default:""
+        },
+        required:false
+
     }
 });
 
