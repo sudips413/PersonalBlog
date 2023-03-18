@@ -31,7 +31,7 @@ const User = new mongoose.Schema({
             type:String,
             default:""
         },
-        required:false
+        required:true
 
     }
 });
