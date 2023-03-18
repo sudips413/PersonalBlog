@@ -21,7 +21,7 @@ const User = new mongoose.Schema({
     image:{
         fileName:{
             type:String,
-            default:"",
+            default:""
         },
         data:{
             type:Buffer,
@@ -30,8 +30,8 @@ const User = new mongoose.Schema({
         contentType:{
             type:String,
             default:""
-        }
-        
+        },
+        required:false
 
     }
 });
