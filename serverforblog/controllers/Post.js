@@ -39,6 +39,10 @@ exports.CreatePost = async (req,res)=>{
 exports.ShowPosts = async(req,res)=>{
     try{
         const posts = await Post.find();
+        //arrange the posts in descending order according to date
+        posts.sort((a,b)=>{
+            return new Date(b.date) - new Date(a.date);
+        })        
         res.send(posts);
     }
     catch(err){
