@@ -37,6 +37,39 @@ const Post= new mongoose.Schema(
         username:{
             type:String,
             required:true
+        },
+        comment:{
+            type:Array,
+            default:[{
+                username:"",
+                comment:"",
+                userid:"",
+                image:{
+                    fileName:{
+                        type:String,
+                        default:""
+                    },
+                    data:{
+                        type:Buffer,
+                        default:""
+                    },
+                    contentType:{
+                        type:String,
+                        default:""
+                    },
+                    required:true
+                }
+
+            }],
+            required:false
+        },
+        likes:{
+            type: Number,
+            default:0,
+        },
+        views:{
+            type: Number,
+            default:0,
         }
     }
 );

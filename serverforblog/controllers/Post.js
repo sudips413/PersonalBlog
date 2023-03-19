@@ -4,6 +4,154 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 
+exports.increaseLike = async(req,res)=>{
+    try{
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({
+                success:false,
+                message: "Invalid post ID"
+            });
+        }
+        const post = await Post.findById(req.params.id);
+        if(post){
+            post.likes = post.likes + 1;
+            await post.save().then((data)=>{
+                res.status(200).json({
+                    success:true,
+                    data:post,
+                    message:"Like increased successfully"
+                })
+            }
+            ).catch((err)=>{
+                res.status(500).json({
+                    success:false,
+                    message:err.message
+                })
+            }
+            )
+        }
+    }
+    catch(err){
+        res.status(500).json({
+            success:false,
+            message:err.message
+        })
+    }
+}
+exports.decreaseLike = async(req,res)=>{
+    try{
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({
+                success:false,
+                message: "Invalid post ID"
+            });
+        }
+        const post = await Post.findById(req.params.id);
+        if(post){
+            post.likes = post.likes-1;
+            await post.save().then((data)=>{
+                res.status(200).json({
+                    success:true,
+                    data:post,
+                    message:"Like increased successfully"
+                })
+            }
+            ).catch((err)=>{
+                res.status(500).json({
+                    success:false,
+                    message:err.message
+                })
+            }
+            )
+        }
+    }
+    catch(err){
+        res.status(500).json({
+            success:false,
+            message:err.message
+        })
+    }
+}
+
+
+
+exports.DeleteComment = async(req,res)=>{
+    try{
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({
+                success:false,
+                message: "Invalid post ID"
+            });
+        }
+
+        const post = await Post.findById(req.params.id);
+        if(post){
+            post.comment = [];
+            await post.save().then((data)=>{
+                res.status(200).json({
+                    success:true,
+                    data:post,
+                    message:"Comment deleted successfully"
+                })
+            }
+            ).catch((err)=>{
+                res.status(500).json({
+                    success:false,
+                    message:err.message
+                })
+            }
+            )
+        }
+    }
+    catch(err){
+        res.status(500).json({
+            success:false,
+            message:err.message
+        })
+    }
+}
+
+
+
+exports.updateComment = async(req,res)=>{
+    try{
+        const post = await Post.findById(req.params.id);
+        if(post){
+            const comment = {
+                username:req.body.username,
+                comment:req.body.comment,
+                userid:req.body.userid,
+                image:{
+                    fileName:req.body.image.fileName,
+                    data:req.body.image.data,
+                    contentType:req.body.image.contentType
+
+                }                
+            }
+            post.comment.push(comment);
+            await post.save().then((data)=>{
+                res.status(200).json({
+                    success:true,
+                    data:post,
+                    message:"Comment added successfully"
+                })
+            }
+            ).catch((err)=>{
+                res.status(500).json({
+                    success:false,
+                    message:err.message
+                })
+            })
+        }
+    }
+    catch(err){
+        res.status(500).json({
+            success:false,
+            message:err.message
+        })
+    }
+}
+
 exports.CreatePost = async (req,res)=>{
 
     if(req.body){

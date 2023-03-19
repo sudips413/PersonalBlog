@@ -14,12 +14,16 @@ const storage = multer.diskStorage({
 const upload = multer({storage:storage});
 
 
-const {CreatePost,ShowPosts,DeletePost, UpdatePost} = require('../controllers/Post');
+const {CreatePost,ShowPosts,DeletePost, UpdatePost,updateComment,increaseLike,decreaseLike} = require('../controllers/Post');
 
 router.post('/create',upload.single("file"),CreatePost);
 router.get('/posts',ShowPosts);
 router.delete('/delete/:id',DeletePost);
 router.put('/update/:id',upload.single("file"),UpdatePost);
+router.put('/comment/:id',updateComment);
+router.put('/post/increaselike/:id',increaseLike);
+router.put('/post/decreaselike/:id',decreaseLike);
+
 
 
 
