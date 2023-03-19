@@ -3,6 +3,40 @@ const Post = require('../models/Post');
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
+exports.increaseView = async(req,res)=>{
+    try{
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({
+                success:false,
+                message: "Invalid post ID"
+            });
+        }
+        const post = await Post.findById(req.params.id);
+        if(post){
+            post.views = post.views + 1;
+            await post.save().then((data)=>{
+                res.status(200).json({
+                    success:true,
+                    data:post,
+                    message:"View increased successfully"
+                })
+            }
+            ).catch((err)=>{
+                res.status(500).json({
+                    success:false,
+                    message:err.message
+                })
+            }
+            )
+        }
+    }
+    catch(err){
+        res.status(500).json({
+            success:false,
+            message:err.message
+        })
+    }
+}
 
 exports.increaseLike = async(req,res)=>{
     try{
