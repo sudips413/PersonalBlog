@@ -43,6 +43,7 @@ exports.RegisterUser= async (req, res) => {
 
 
 exports.LoginAuth = async (req,res)=>{
+
     
     try{
         const {email,password}=req.body;       
@@ -50,11 +51,18 @@ exports.LoginAuth = async (req,res)=>{
         if(data){
             const{passwords,...others} = data._doc;
             const posts = await Post.find();
+            const otherusers = await User.find({email:{$ne:req.body.email}});
+            const obj = otherusers.map((item)=>{
+                const{password,...others} = item._doc;
+                return others;
+            })
             res.json({
+                
                 success: true,
                 user: others,
                 posts: posts,
                 id: data._id,
+                others:obj,
                 message: "Login Successful"
             });
         }
@@ -74,18 +82,15 @@ exports.LoginAuth = async (req,res)=>{
 
 exports.updatepic = async (req,res)=>{
     try{
+        // const id = req.params.id;
+        // const photoPath = path.join(__dirname, '../public/images', req.file.filename);
+        // const photoData = fs.readFileSync(photoPath);
         const id = req.params.id;
-        const photoPath = path.join(__dirname, '../public/images', req.file.filename);
-        const photoData = fs.readFileSync(photoPath);
-        let ImageObject={
-            fileName:req.file.filename,
-            data:photoData,
-            contentType:req.file.mimetype
-            
-        }
+        //get image path from cloudinary
+        const photoPath = req.file.path;
         const data = await User.findByIdAndUpdate(
             new mongoose.Types.ObjectId(id),
-            { image: ImageObject },
+            { image: photoPath },
             { new: true }
         );
         if(!data){
@@ -113,10 +118,16 @@ exports.GetbyId = async (req,res)=>{
         const user = await User.findById(req.params.id);
         if(user){
             const{password,...others} = user._doc;
+            const otherusers = await User.find({_id:{$ne:req.params.id}});
+            const obj = otherusers.map((item)=>{
+                const{password,...others} = item._doc;
+                return others;
+            })
             
             res.json({
                 success: true,
                 users: others,
+                others: obj,
                 message: "User found"
             });
         }
@@ -189,6 +200,35 @@ exports.ChangePassword = async (req,res)=>{
         })
     }
 
+}
+
+exports.followController = async (req,res)=>{
+    try{
+        const user = await User.findById(req.params.id);
+        const followinguser= await User.findById(req.body.id);
+        if(user && followinguser){
+            if(!user.followings.includes(req.body.id)){
+                await user.updateOne({$push:{followings:req.body.id}});
+                if(!followinguser.followers.includes(req.params.id)){
+                await followinguser.updateOne({$push:{followers:req.params.id}});
+                }
+                res.json({
+                    success: true,
+                    message: "User has been followed"
+                });
+            }
+            else{
+                res.json({
+                    success: false,
+                    message: "You already follow this user"
+                });
+            }
+        }
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({message: 'Server error'});
+    }
 }
 
 

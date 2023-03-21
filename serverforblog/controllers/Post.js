@@ -24,7 +24,7 @@ exports.increaseView = async(req,res)=>{
             ).catch((err)=>{
                 res.status(500).json({
                     success:false,
-                    message:err.message
+                    message:"error occured"
                 })
             }
             )
@@ -155,12 +155,7 @@ exports.updateComment = async(req,res)=>{
                 username:req.body.username,
                 comment:req.body.comment,
                 userid:req.body.userid,
-                image:{
-                    fileName:req.body.image.fileName,
-                    data:req.body.image.data,
-                    contentType:req.body.image.contentType
-
-                }                
+                image:req.body.image               
             }
             post.comment.push(comment);
             await post.save().then((data)=>{
@@ -189,16 +184,12 @@ exports.updateComment = async(req,res)=>{
 exports.CreatePost = async (req,res)=>{
 
     if(req.body){
-        const photoPath = path.join(__dirname, '../public/images', req.file.filename);
-        const photoData = fs.readFileSync(photoPath);
+        // const photoPath = path.join(__dirname, '../public/images', req.file.filename);
+        const photoData = req.file.path;
         const post =new Post({
             title:req.body.title,
             description:req.body.description,
-            image:{
-                fileName:req.file.filename,
-                data:photoData,
-                contentType:req.file.mimetype
-            },
+            image:photoData,
             userid:new mongoose.Types.ObjectId(req.body.userid),
             username:req.body.username
         });

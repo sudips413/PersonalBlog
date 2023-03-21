@@ -10,21 +10,25 @@ const Post= new mongoose.Schema(
             type: String,
             required: true
         },
-        image:{
-            fileName:{
-                type:String,
-                default:""
-            },
-            data:{
-                type:Buffer,
-                default:""
-            },
-            contentType:{
-                type:String,
-                default:""
-            },
-            required:false
+        // image:{
+        //     fileName:{
+        //         type:String,
+        //         default:""
+        //     },
+        //     data:{
+        //         type:Buffer,
+        //         default:""
+        //     },
+        //     contentType:{
+        //         type:String,
+        //         default:""
+        //     },
+        //     required:false
     
+        // },
+        image:{
+            type:String,
+            default:""
         },
         date: {
             type: Date,
@@ -44,21 +48,22 @@ const Post= new mongoose.Schema(
                 username:"",
                 comment:"",
                 userid:"",
-                image:{
-                    fileName:{
-                        type:String,
-                        default:""
-                    },
-                    data:{
-                        type:Buffer,
-                        default:""
-                    },
-                    contentType:{
-                        type:String,
-                        default:""
-                    },
-                    required:true
-                }
+                image:""
+                // image:{
+                //     fileName:{
+                //         type:String,
+                //         default:""
+                //     },
+                //     data:{
+                //         type:Buffer,
+                //         default:""
+                //     },
+                //     contentType:{
+                //         type:String,
+                //         default:""
+                //     },
+                //     required:true
+                // }
 
             }],
             required:false

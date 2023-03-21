@@ -2,16 +2,26 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 
-const storage = multer.diskStorage({
-    destination:function(req,file,cb){
-        cb(null,'./public/images');
-    },
-    filename:function(req,file,cb){
-        cb(null,file.originalname);
-    }
-})
+// const storage = multer.diskStorage({
+//     destination:function(req,file,cb){
+//         cb(null,'./public/images');
+//     },
+//     filename:function(req,file,cb){
+//         cb(null,file.originalname);
+//     }
+// })
 
-const upload = multer({storage:storage});
+// const upload = multer({storage:storage});
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'postPicture',
+        allowedFormats: ['jpg', 'png', 'jpeg', 'gif', 'svg', 'webp', 'jfif']
+    }
+});
+const upload = multer({ storage: storage });
 
 
 const {CreatePost,ShowPosts,DeletePost, UpdatePost,updateComment,increaseLike,decreaseLike,increaseView} = require('../controllers/Post');

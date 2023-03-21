@@ -19,21 +19,34 @@ const User = new mongoose.Schema({
         default: Date.now,
     },
     image:{
-        fileName:{
-            type:String,
-            default:""
-        },
-        data:{
-            type:Buffer,
-            default:""
-        },
-        contentType:{
-            type:String,
-            default:""
-        },
-        required:false
-
+        type:String,
+        default:""
     }
+    ,
+    followings:{
+        type:Array,
+        default:[]
+    },
+    followers:{
+        type:Array,
+        default:[]
+    }
+    // image:{
+    //     fileName:{
+    //         type:String,
+    //         default:""
+    //     },
+    //     data:{
+    //         type:Buffer,
+    //         default:""
+    //     },
+    //     contentType:{
+    //         type:String,
+    //         default:""
+    //     },
+    //     required:false
+
+    // }
 });
 
 
