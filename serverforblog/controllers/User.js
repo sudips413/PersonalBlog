@@ -51,6 +51,9 @@ exports.LoginAuth = async (req,res)=>{
         if(data){
             const{passwords,...others} = data._doc;
             const posts = await Post.find();
+            posts.sort((a,b)=>{
+                return new Date(b.date) - new Date(a.date);
+            })   
             const otherusers = await User.find({email:{$ne:req.body.email}});
             const obj = otherusers.map((item)=>{
                 const{password,...others} = item._doc;
